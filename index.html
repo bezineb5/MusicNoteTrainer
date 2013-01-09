@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+    <head>
+        <!--<script src="javascripts/jquery.js"></script>-->
+    	<script type="text/javascript" src="lib/zepto.min.js"></script>
+		<script type="text/javascript" src="lib/abcjs_basic_1.5-min.js"></script>
+		<script type="text/javascript" src="trainer.js"></script>
+		
+          <!-- Included CSS Files (Compressed) -->
+        <link rel="stylesheet" href="stylesheets/foundation.min.css">
+
+        <script src="javascripts/modernizr.foundation.js"></script>
+
+        <!-- Included JS Files (Compressed) -->
+        <script src="javascripts/foundation.min.js"></script>
+  
+        <!-- Initialize JS Plugins -->
+        <script src="javascripts/app.js"></script>
+
+        <!-- Set the viewport width to device width for mobile -->
+        <meta name="viewport" content="width=device-width" />
+
+		<title>Music Note Trainer</title>
+	</head>
+	<body>
+        <!-- Basic Needs -->
+        <nav class="top-bar">
+            <ul>
+                <li class="name">
+                    <h1>
+                        <a href="#">Music Note Trainer</a>
+                    </h1>
+                </li>
+                <li class="toggle-topbar">
+                    <a href="#"></a>
+                </li>
+            </ul>
+            <section>
+                <!-- Right Nav Section -->
+                <ul class="right">
+                  <li><a href="#" id="nav_tour">Take a tour!</a></li>
+                  <li class="has-dropdown">
+                    <a href="#">Notation</a>
+                    <ul class="dropdown">
+                        <li><label>Select your musical notation</label></li>
+                        <li><a href="#" class="" id="nav_notation_english">English</a></li>
+                        <li><a href="#" id="nav_notation_southern_europe">Southern Europe</a></li>
+                        <li><a href="#" id="nav_notation_northern_europe">Northern Europe</a></li>
+                    </ul>
+                  </li>
+                </ul>
+            </section>
+        </nav>
+        
+        <content>
+            <div id="score"></div>
+        </content>
+
+        <footer>
+            <div style="display:block;">
+                <a class="button" href="#" id="choice0">0</a>
+                <a class="button" href="#" id="choice1">1</a>
+                <a class="button" href="#" id="choice2">2</a>
+                <a class="button" href="#" id="choice3">3</a>
+            </div>
+        </footer>
+
+        <div id="failureMessage" class="reveal-modal [expand, xlarge, large, medium, small]">
+          <h2>No, that's something else...</h2>
+        </div>
+        
+	</body>
+</html>
