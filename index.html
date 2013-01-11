@@ -1,14 +1,15 @@
 <!doctype html>
 <html>
     <head>
-        <!--<script src="javascripts/jquery.js"></script>-->
+        <!-- <script src="javascripts/jquery.js"></script> -->
     	<script type="text/javascript" src="lib/zepto.min.js"></script>
 		<script type="text/javascript" src="lib/abcjs_basic_1.5-min.js"></script>
 		<script type="text/javascript" src="trainer.js"></script>
 		
           <!-- Included CSS Files (Compressed) -->
         <link rel="stylesheet" href="stylesheets/foundation.min.css">
-
+        <link rel="stylesheet" href="stylesheets/app.css">
+        
         <script src="javascripts/modernizr.foundation.js"></script>
 
         <!-- Included JS Files (Compressed) -->
@@ -20,7 +21,7 @@
         <!-- Set the viewport width to device width for mobile -->
         <meta name="viewport" content="width=device-width" />
 
-		<title>Music Note Trainer</title>
+		<title>Music Reading Trainer</title>
 	</head>
 	<body>
         <!-- Basic Needs -->
@@ -28,7 +29,7 @@
             <ul>
                 <li class="name">
                     <h1>
-                        <a href="#">Music Note Trainer</a>
+                        <a href="#">Music Reading Trainer</a>
                     </h1>
                 </li>
                 <li class="toggle-topbar">
@@ -37,7 +38,7 @@
             </ul>
             <section>
                 <!-- Right Nav Section -->
-                <ul class="right">
+                <ul class="right" id="rightNavSection">
                   <li><a href="#" id="nav_tour">Take a tour!</a></li>
                   <li class="has-dropdown">
                     <a href="#">Notation</a>
@@ -52,22 +53,36 @@
             </section>
         </nav>
         
-        <content>
+        <content class="row">
             <div id="score"></div>
         </content>
 
-        <footer>
-            <div style="display:block;">
-                <a class="button" href="#" id="choice0">0</a>
-                <a class="button" href="#" id="choice1">1</a>
-                <a class="button" href="#" id="choice2">2</a>
-                <a class="button" href="#" id="choice3">3</a>
+        <section class="row" role="main">
+            <div class="eight columns">
+            <ul class="block-grid four-up mobile-two-up">
+                <li class="choice"><a class="large button" href="#" id="choice0">0</a></li>
+                <li class="choice"><a class="large button" href="#" id="choice1">1</a></li>
+                <li class="choice"><a class="large button" href="#" id="choice2">2</a></li>
+                <li class="choice"><a class="large button" href="#" id="choice3">3</a></li>
+            </ul>
             </div>
-        </footer>
+        </section>
 
         <div id="failureMessage" class="reveal-modal [expand, xlarge, large, medium, small]">
           <h2>No, that's something else...</h2>
         </div>
         
+        <!-- Each tip is set within this <ol>. -->
+        <!-- This creates the order the tips are displayed -->
+        <ol id="tourRide" style="display:none">
+            <!--This tip will be display as a modal -->
+            <li><h4>Welcome to Music Reading Trainer!</h4>
+                <p>This tool will train you to read music notes faster.</p>
+            </li>
+            <!--data-id needs to be the same as the parent it will attach to -->
+            <li data-id="score" data-options="tipLocation:bottom"><p>Look at this note...</p></li>
+            <li data-id="choice2" data-options="tipLocation:top"><p>...then select what it corresponds to amoung these 4 options. If you succeed, it will show you another note.</p></li>
+            <li data-id="rightNavSection" data-button="Let's start!" data-options="tipLocation:bottom"><p>If you want to change the notation, use this menu.</p></li>
+        </ol>
 	</body>
 </html>

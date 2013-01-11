@@ -140,8 +140,13 @@ TrainerApp.saveConfiguration = function() {
 };
 
 TrainerApp.takeTour = function() {
+    TrainerApp.closeFlyouts();     
     TrainerApp.configurationController.guidedTourTaken = true;
     TrainerApp.saveConfiguration();
+    
+    $("#tourRide").joyride({
+      /* Options will go here */
+    });
 };
 
 TrainerApp.setNotation = function(notationId) {
@@ -152,6 +157,10 @@ TrainerApp.setNotation = function(notationId) {
     }
 };
 
+TrainerApp.closeFlyouts = function() {
+    $(".top-bar").children('.flyout').hide();
+};
+
 $(document).ready(function() {
     $(document).foundationNavigation();
     
@@ -160,9 +169,9 @@ $(document).ready(function() {
     $(window).resize(TrainerApp.onResize);
     
     $("#nav_tour").on('click', TrainerApp.takeTour);
-    $("#nav_notation_english").on('click', function() { TrainerApp.setNotation('english'); });
-    $("#nav_notation_southern_europe").on('click', function() { TrainerApp.setNotation('southern_europe'); });
-    $("#nav_notation_northern_europe").on('click', function() { TrainerApp.setNotation('northern_europe'); });
+    $("#nav_notation_english").on('click', function() { TrainerApp.closeFlyouts(); TrainerApp.setNotation('english'); });
+    $("#nav_notation_southern_europe").on('click', function() { TrainerApp.closeFlyouts(); TrainerApp.setNotation('southern_europe'); });
+    $("#nav_notation_northern_europe").on('click', function() { TrainerApp.closeFlyouts(); TrainerApp.setNotation('northern_europe'); });
 
     $("#choice0").on('click', function() { TrainerApp.selected(0); });
     $("#choice1").on('click', function() { TrainerApp.selected(1); });
@@ -181,10 +190,10 @@ $(document).ready(function() {
 TrainerApp.printerParams = {
     scale: 2,
     staffwidth: 300,
-    paddingtop: 15,
-    paddingbottom: 30,
-    paddingright: 50,
-    paddingleft: 15,
+    paddingtop: 0,
+    paddingbottom: 0,
+    paddingright: 40,
+    paddingleft: 40,
     editable: false	
 };
 
@@ -198,18 +207,35 @@ TrainerApp.currentChoices = [null, null, null, null];
 
 TrainerApp.newQuestion = function() {
     // Choose 4 random notes
-    var choices = [
-        TrainerApp.randomNote(),
-        TrainerApp.randomNote(),
-        TrainerApp.randomNote(),
-        TrainerApp.randomNote()
-        ];
+    var choices = [];
+    for(var i=0; i<4; i++) {
+        TrainerApp.addUniqueRandomNote(choices);
+    }
     
     TrainerApp.currentChoices = choices;
     TrainerApp.currentNote = choices[getRandomInt(0, 3)];
     
     TrainerApp.showChoices();
     TrainerApp.showNote();
+};
+
+TrainerApp.addUniqueRandomNote = function(currentNotes) {
+    
+    while (true) {
+        var newNote = TrainerApp.randomNote();
+        var key = newNote.getKey();
+        
+        // Check for the existence of the same key in the array
+        var alreadyExists = false;
+        for (var i = 0; i < currentNotes.length; i++) {
+            alreadyExists |= (key == currentNotes[i].getKey());
+        }
+        
+        if (!alreadyExists) {
+            currentNotes.push(newNote);
+            return;
+        }
+    }
 };
 
 TrainerApp.randomNote = function() {
@@ -241,9 +267,11 @@ TrainerApp.selected = function(choiceId) {
         TrainerApp.newQuestion();             
     } else {
         // Failure
+        $("#choice" + choiceId).addClass("alert");
         $("#failureMessage").reveal({animation: 'fade', animationSpeed:100});
          setTimeout(function() {
             $('#failureMessage').trigger('reveal:close');
-         }, 500);
+            $("#choice" + choiceId).removeClass("alert");
+         }, 800);
     }
 };
