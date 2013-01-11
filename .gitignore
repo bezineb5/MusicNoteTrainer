@@ -1,5 +1,9 @@
 # Blackberry application configuration
 config.xml
+bin
 
 #Cloud9 files
 .c9revisions
+
+# Windows image cache
+Thumbs.db
